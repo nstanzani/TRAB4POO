@@ -11,6 +11,19 @@ public class User {
     private String password;
     private int ID;
 
+    User(String name, String address, String phone, String email, String password, int ID){
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
+        this.ID = ID;
+    }
+
+    public String toFile(){
+        return name + "," + address + "," + phone + "," + email + "," + password + "," + ID + "\n";
+    }
+
     public String getName() {
         return name;
     }
