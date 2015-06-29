@@ -8,8 +8,23 @@ import java.time.LocalDate;
 public class Product {
     private String name;
     private float price;
-    private LocalDate expirationDate;
     private String provider;
+    private int quantity;
+
+    Product(String name, float price, String provider, int quantity){
+        this.name = name;
+        this.price = price;
+        this.provider = provider;
+        this.quantity = quantity;
+    }
+
+    public String toFile(){
+        return this.name + "," + this.price + "," + this.provider + "," + this.quantity + "\n";
+    }
+
+    public String toString(){
+        return "Nome: " + this.name + "\nPreco: " + this.price + "\nFornecedor: " + this.provider + "\nQuantidade disponivel: " + this.quantity;
+    }
 
     public String getName() {
         return name;
@@ -19,13 +34,11 @@ public class Product {
         return price;
     }
 
-    public LocalDate getExpirationDate() {
-        return expirationDate;
-    }
-
     public String getProvider() {
         return provider;
     }
+
+    public int getQuantity(){ return quantity; }
 
     public void setName(String name) {
         this.name = name;
@@ -35,11 +48,9 @@ public class Product {
         this.price = price;
     }
 
-    public void setExpirationDate(LocalDate expirationDate) {
-        this.expirationDate = expirationDate;
-    }
-
     public void setProvider(String provider) {
         this.provider = provider;
     }
+
+    public void setQuantity(int quantity){ this.quantity = quantity; }
 }
