@@ -9,6 +9,7 @@ import java.util.*;
 public class Market {
 
     Scanner scanner = new Scanner(System.in);
+    static List<Product> list = new LinkedList<Product>();
 
     public void registerNewProduct() {
         try {
@@ -34,23 +35,54 @@ public class Market {
             System.out.println("Erro ao abrir o arquivo: " + e);
         }
     }
+
     public void listProducts() {
         try {
             String line;
             String[] splitLine;
             Product prod;
-            BufferedReader products = new BufferedReader(new FileReader("products.csv"));
+            FileReader fr = new FileReader("products.csv");
+            BufferedReader products = new BufferedReader(fr);
             while((line = products.readLine()) != null){
                 splitLine = line.split(",");
                 prod = new Product(splitLine[0], Float.parseFloat(splitLine[1]), splitLine[2], Integer.parseInt(splitLine[3]));
                 System.out.println(prod + "\n");
             }
+            fr.close();
         }
         catch (Exception e){
             System.out.println("Erro ao recuperar os produtos: " + e);
         }
     }
-    public void updateStock() {
 
+    public void updateStock() {
+        try {
+            Product prod;
+            String line;
+            String[] splitLine;
+            ListIterator itr;
+            FileReader fr = new FileReader("products.csv");
+            FileWriter fw;
+            BufferedReader products = new BufferedReader(fr);
+            while((line = products.readLine()) != null){
+                splitLine = line.split(",");
+                prod = new Product(splitLine[0], Float.parseFloat(splitLine[1]), splitLine[2], Integer.parseInt(splitLine[3]));
+                list.add(prod);
+            }
+            fr.close();
+            fw = new FileWriter("products.csv", false);
+            itr = list.listIterator();
+            while(itr.hasNext()){
+                prod = (Product) itr.next();
+                if(prod.getQuantity() < 70) {
+                    prod.setQuantity(prod.getQuantity() + 250);
+                }
+                fw.write(prod.toFile());
+            }
+            fw.close();
+        }
+        catch (IOException e){
+            System.out.println("Erro ao recuperar os produtos: " + e);
+        }
     }
 }

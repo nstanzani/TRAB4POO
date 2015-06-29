@@ -14,6 +14,7 @@ public class ThreadWait implements Runnable {
             ServerSocket ss = new ServerSocket(port);
             Socket s;
             while (true) {
+                s = null;
                 s = ss.accept();
                 ThreadClient t = new ThreadClient(s);
                 Thread tc = new Thread(t);

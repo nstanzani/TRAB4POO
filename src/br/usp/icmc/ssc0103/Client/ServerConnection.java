@@ -15,7 +15,6 @@ public class ServerConnection {
         try {
             int port = Integer.parseInt(args[1]);
             socket = new Socket(args[0], port);
-
             return socket;
         } catch (Exception e) {
             return null;
