@@ -9,49 +9,59 @@ import java.util.*;
  */
 public class Client {
 
-    BufferedReader sockIn;
-    PrintWriter sockOut;
-    ServerConnection server = new ServerConnection();
-    Scanner scanner = new Scanner(System.in);
-    Optional<User> user;
+    static BufferedReader sockIn;
+    static PrintWriter sockOut;
+    static ClientConnection server = new ClientConnection();
+    static Scanner scanner = new Scanner(System.in);
+    static Optional<User> user;
 
-    public void Connect(String[] args){
-        Socket sock;
+    public static void main(String[] args) {
         try {
-            sock = server.connect(args);
-            sockIn = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-            sockOut = new PrintWriter(sock.getOutputStream(), true);
-        }
-        catch (Exception ex){
-            System.out.println("Erro com a conexão ao servidor: " + ex);
-        }
-    }
-
-    public void menuIni(){
-        int opt;
-        do{
-            System.out.println("\t\tMenu\n");
-            System.out.println("1 - Login");
-            System.out.println("2 - Cadastar usuario");
-            System.out.println("0 - Sair");
-            opt = Integer.parseInt(scanner.nextLine());
-            switch(opt){
-                case 1:
-                    user = server.login();
-                    if(user.isPresent() == true)
-                        menuLogged();
-                    break;
-                case 2:
-                    server.registerNewUser();
-                    break;
-                case 0:
-                    System.exit(0);
-                    break;
+            Socket socket;
+            socket = server.connect(args);
+            if(socket == null){
+                System.out.println("Conexao nao estabelecida, cheque se o ip e a porta foram colocados corretamente");
+                System.exit(0);
             }
-        } while(opt != 0);
+            sockIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            sockOut = new PrintWriter(socket.getOutputStream(), true);
+            menuIni();
+        }
+        catch(Exception e){
+            System.out.println("Erro na conexao: " + e);
+        }
     }
 
-    public void menuLogged() {
+    public static void menuIni(){
+        try {
+            int opt;
+            do {
+                System.out.println("\t\tMenu\n");
+                System.out.println("1 - Login");
+                System.out.println("2 - Cadastar usuario");
+                System.out.println("0 - Sair");
+                opt = Integer.parseInt(scanner.nextLine());
+                switch (opt) {
+                    case 1:
+                        user = server.login();
+                        if (user.isPresent() == true)
+                            menuLogged();
+                        break;
+                    case 2:
+                        server.registerNewUser();
+                        break;
+                    case 0:
+                        System.exit(0);
+                        break;
+                }
+            } while (opt != 0);
+        }
+        catch(Exception e){
+            System.out.println("Erro: " + e);
+        }
+    }
+
+    public static void menuLogged() {
         int opt;
         do{
             System.out.println("\t\tMenu\n");

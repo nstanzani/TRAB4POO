@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Created by arnaldo on 26/06/15.
  */
-public class ServerConnection {
+public class ClientConnection {
     Socket socket;
     Scanner scanner = new Scanner(System.in);
 

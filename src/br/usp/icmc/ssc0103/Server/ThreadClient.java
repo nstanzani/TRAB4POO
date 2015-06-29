@@ -11,6 +11,6 @@ public class ThreadClient implements Runnable {
         this.socket = s;
     }
     public void run(){
-
+        System.out.println("Entrou na thread");
     }
 }
