@@ -65,6 +65,7 @@ public class Market {
             FileReader fr = new FileReader("products.csv");
             FileWriter fw;
             BufferedReader products = new BufferedReader(fr);
+            list.clear();
             while((line = products.readLine()) != null){
                 splitLine = line.split(",");
                 prod = new Product(splitLine[0], Float.parseFloat(splitLine[1]), splitLine[2], Integer.parseInt(splitLine[3]));
@@ -87,7 +88,39 @@ public class Market {
         }
     }
 
-    public synchronized void makeBuy(String name, int quantity){
-
+    public synchronized boolean makeBuy(String name, int quantity){
+        try {
+            Boolean returned = false;
+            Product prod;
+            String line;
+            String[] splitLine;
+            ListIterator itr;
+            FileReader fr = new FileReader("products.csv");
+            FileWriter fw;
+            BufferedReader products = new BufferedReader(fr);
+            list.clear();
+            while ((line = products.readLine()) != null) {
+                splitLine = line.split(",");
+                prod = new Product(splitLine[0], Float.parseFloat(splitLine[1]), splitLine[2], Integer.parseInt(splitLine[3]));
+                list.add(prod);
+            }
+            fr.close();
+            fw = new FileWriter("products.csv", false);
+            itr = list.listIterator();
+            while(itr.hasNext()){
+                prod = (Product) itr.next();
+                if(prod.getQuantity() >= quantity && prod.getName().toLowerCase().equals(name.toLowerCase())) {
+                    prod.setQuantity(prod.getQuantity() - quantity);
+                    returned = true;
+                }
+                fw.write(prod.toFile());
+            }
+            fw.close();
+            return returned;
+        }
+        catch (IOException e){
+            System.out.println("Erro ao recuperar os produtos: " + e);
+            return false;
+        }
     }
 }

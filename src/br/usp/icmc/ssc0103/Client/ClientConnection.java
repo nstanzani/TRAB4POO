@@ -77,13 +77,23 @@ public class ClientConnection {
     }
 
     public void buyProduct(BufferedReader sockIn, PrintWriter sockOut) {
-        String name;
-        int quantity;
-        System.out.println("Digite o nome do produto que deseja comprar:");
-        name = scanner.nextLine();
-        System.out.println("Digite a quantidade que deseja comprar: ");
-        quantity = Integer.parseInt(scanner.nextLine());
-        sockOut.println("comprar:" + name + "," + quantity);
+        try {
+            String name;
+            String returned;
+            int quantity;
+            System.out.println("Digite o nome do produto que deseja comprar:");
+            name = scanner.nextLine();
+            System.out.println("Digite a quantidade que deseja comprar: ");
+            quantity = Integer.parseInt(scanner.nextLine());
+            sockOut.println("comprar:" + name + "," + quantity);
+            returned = sockIn.readLine();
+            if(returned.equals("true"))
+                System.out.println("Compra realizada com sucesso");
+            else
+                System.out.println("Problema na compra: o produto pode nao existir ou nao ter estoque suficiente. Tente novamente");
+        }
+        catch(Exception e){
+            System.out.println("Erro ao executar a compra: " + e);
+        }
     }
-
 }

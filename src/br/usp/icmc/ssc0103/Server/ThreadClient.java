@@ -51,7 +51,10 @@ public class ThreadClient implements Runnable {
                     }
                     else if(splitLine[0].equals("comprar")){
                         values = splitLine[1].split(",");
-                        market.makeBuy(values[0], Integer.parseInt(values[1]));
+                        if(market.makeBuy(values[0], Integer.parseInt(values[1])))
+                            sockOut.println("true");
+                        else
+                            sockOut.println("false");
                     }
                 }
             }
