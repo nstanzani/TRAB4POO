@@ -21,7 +21,7 @@ public class User {
     }
 
     public String toFile(){
-        return name + "," + address + "," + phone + "," + email + "," + password + "," + ID + "\n";
+        return name + "," + address + "," + phone + "," + email + "," + password + "," + ID;
     }
 
     public String getName() {

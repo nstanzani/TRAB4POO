@@ -43,12 +43,11 @@ public class Client {
                 opt = Integer.parseInt(scanner.nextLine());
                 switch (opt) {
                     case 1:
-                        user = server.login();
-                        if (user.isPresent() == true)
+                        if (server.login(sockIn, sockOut))
                             menuLogged();
                         break;
                     case 2:
-                        server.registerNewUser();
+                        server.registerNewUser(sockIn, sockOut);
                         break;
                     case 0:
                         System.exit(0);
@@ -71,10 +70,10 @@ public class Client {
             opt = Integer.parseInt(scanner.nextLine());
             switch(opt){
                 case 1:
-                    server.getProducts();
+                    server.getProducts(sockIn, sockOut);
                     break;
                 case 2:
-                    server.buyProduct();
+                    server.buyProduct(sockIn, sockOut);
                     break;
                 case 0:
                     System.exit(0);

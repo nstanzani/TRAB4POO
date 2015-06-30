@@ -21,63 +21,53 @@ public class ClientConnection {
         }
     }
 
-    public void registerNewUser() {
-        try {
-            FileWriter fw = new FileWriter("users.csv", true);
-            User user;
-            int id;
-            String name, address, phone, email, password;
-            System.out.println("Digite o nome: ");
-            name = scanner.nextLine();
-            System.out.println("Digite o endereco: ");
-            address = scanner.nextLine();
-            System.out.println("Digite o telefone: ");
-            phone = scanner.nextLine();
-            System.out.println("Digite o email: ");
-            email = scanner.nextLine();
-            System.out.println("Digite a senha: ");
-            password = scanner.nextLine();
-            System.out.println("Digite o ID: ");
-            id = Integer.parseInt(scanner.nextLine());
-            user = new User(name, address, phone, email, password, id);
-            fw.write(user.toFile());
-            System.out.println("Adicionado com sucesso");
-            fw.close();
-        }
-        catch (Exception e){
-            System.out.println("Erro ao abrir o arquivo: " + e);
-        }
+    public void registerNewUser(BufferedReader sockIn, PrintWriter sockOut) {
+        User user;
+        int id;
+        String name, address, phone, email, password;
+        System.out.println("Digite o nome: ");
+        name = scanner.nextLine();
+        System.out.println("Digite o endereco: ");
+        address = scanner.nextLine();
+        System.out.println("Digite o telefone: ");
+        phone = scanner.nextLine();
+        System.out.println("Digite o email: ");
+        email = scanner.nextLine();
+        System.out.println("Digite a senha: ");
+        password = scanner.nextLine();
+        System.out.println("Digite o ID: ");
+        id = Integer.parseInt(scanner.nextLine());
+        user = new User(name, address, phone, email, password, id);
+        sockOut.println("registrar:" + user.toFile());
+        System.out.println("Adicionado com sucesso");
     }
-    public Optional<User> login() {
+
+    public boolean login(BufferedReader sockIn, PrintWriter sockOut) {
         try {
-            User user;
-            BufferedReader users = new BufferedReader(new FileReader("users.csv"));
             int id;
             String pass, line;
-            String[] splitLine;
             System.out.println("Digite o ID: ");
             id = Integer.parseInt(scanner.nextLine());
             System.out.println("Digite a senha: ");
             pass = scanner.nextLine();
-            while ((line = users.readLine()) != null){
-                splitLine = line.split(",");
-                user = new User(splitLine[0], splitLine[1], splitLine[2], splitLine[3], splitLine[4], Integer.parseInt(splitLine[5]));
-                if(user.getID() == id && user.getPassword().equals(pass)) {
-                    return Optional.of(user);
-                }
-            }
-            System.out.println("Usuario nao encontrado");
-            return Optional.empty();
+            sockOut.println("login:" + id + "," + pass);
+            line = sockIn.readLine();
+            if (line.equals("true"))
+                return true;
+            System.out.println("Dados incorretos");
+            return false;
         }
-        catch (Exception ex){
-            System.out.println("Erro ao recuperar usuarios: " + ex);
-            return Optional.empty();
+        catch(Exception e){
+            System.out.println("Erro ao abrir o arquivo no servidor: " + e);
+            return false;
         }
     }
-    public void getProducts() {
 
+    public void getProducts(BufferedReader sockIn, PrintWriter sockOut) {
+        sockOut.println("listar");
     }
-    public void buyProduct() {
+
+    public void buyProduct(BufferedReader sockIn, PrintWriter sockOut) {
 
     }
 

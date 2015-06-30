@@ -1,5 +1,8 @@
 package br.usp.icmc.ssc0103.Server;
 
+import br.usp.icmc.ssc0103.Client.User;
+
+import java.io.*;
 import java.util.*;
 /**
  * Created by Guilherme on 29/06/2015.
@@ -33,5 +36,35 @@ public class Server {
                     break;
             }
         } while(opt != 0);
+    }
+
+    public void register(String value){
+        try {
+            FileWriter fw = new FileWriter("users.csv", true);
+            fw.write(value + "\n");
+            fw.close();
+        }
+        catch(Exception e){
+            System.out.println("Erro ao gravar no arquivo: " + e);
+        }
+    }
+
+    public boolean login(int id, String pass){
+        try {
+            BufferedReader users = new BufferedReader(new FileReader("users.csv"));
+            String line;
+            String[] splitLine;
+            while ((line = users.readLine()) != null){
+                splitLine = line.split(",");
+                if(Integer.parseInt(splitLine[5]) == id && splitLine[4].equals(pass)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        catch(Exception e){
+            System.out.println("Erro ao ler o arquivo: " + e);
+            return false;
+        }
     }
 }
