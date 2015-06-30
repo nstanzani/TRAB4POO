@@ -35,7 +35,7 @@ public class ThreadClient implements Runnable {
                     break;
                 }
                 if(cmdLine.equals("listar")){
-
+                    market.listProducts(sockOut);
                 }
                 else {
                     splitLine = cmdLine.split(":");
@@ -50,7 +50,8 @@ public class ThreadClient implements Runnable {
                         server.register(splitLine[1]);
                     }
                     else if(splitLine[0].equals("comprar")){
-
+                        values = splitLine[1].split(",");
+                        market.makeBuy(values[0], Integer.parseInt(values[1]));
                     }
                 }
             }

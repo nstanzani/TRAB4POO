@@ -64,11 +64,26 @@ public class ClientConnection {
     }
 
     public void getProducts(BufferedReader sockIn, PrintWriter sockOut) {
-        sockOut.println("listar");
+        try {
+            String line;
+            sockOut.println("listar");
+            while ((line = sockIn.readLine()).equals("Fim da listagem") != true) {
+                System.out.println(line);
+            }
+        }
+        catch(Exception e){
+            System.out.println("Erro na listagem: " + e);
+        }
     }
 
     public void buyProduct(BufferedReader sockIn, PrintWriter sockOut) {
-
+        String name;
+        int quantity;
+        System.out.println("Digite o nome do produto que deseja comprar:");
+        name = scanner.nextLine();
+        System.out.println("Digite a quantidade que deseja comprar: ");
+        quantity = Integer.parseInt(scanner.nextLine());
+        sockOut.println("comprar:" + name + "," + quantity);
     }
 
 }

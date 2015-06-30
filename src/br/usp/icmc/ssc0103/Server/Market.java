@@ -36,7 +36,7 @@ public class Market {
         }
     }
 
-    public void listProducts() {
+    public void listProducts(PrintWriter fw) {
         try {
             String line;
             String[] splitLine;
@@ -46,8 +46,9 @@ public class Market {
             while((line = products.readLine()) != null){
                 splitLine = line.split(",");
                 prod = new Product(splitLine[0], Float.parseFloat(splitLine[1]), splitLine[2], Integer.parseInt(splitLine[3]));
-                System.out.println(prod + "\n");
+                fw.println(prod + "\n");
             }
+            fw.println("Fim da listagem");
             fr.close();
         }
         catch (Exception e){
@@ -84,5 +85,9 @@ public class Market {
         catch (IOException e){
             System.out.println("Erro ao recuperar os produtos: " + e);
         }
+    }
+
+    public synchronized void makeBuy(String name, int quantity){
+
     }
 }

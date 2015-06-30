@@ -1,7 +1,5 @@
 package br.usp.icmc.ssc0103.Server;
 
-import br.usp.icmc.ssc0103.Client.User;
-
 import java.io.*;
 import java.util.*;
 /**
@@ -26,7 +24,7 @@ public class Server {
                     market.registerNewProduct();
                     break;
                 case 2:
-                    market.listProducts();
+                    market.listProducts(new PrintWriter(System.out, true));
                     break;
                 case 3:
                     market.updateStock();
