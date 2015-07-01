@@ -4,13 +4,14 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-/**
- * Created by arnaldo on 26/06/15.
- */
+
 public class ClientConnection {
     Socket socket;
     Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Realiza a conexão com o servidor
+     */
     public Socket connect(String[] args) {
         try {
             int port = Integer.parseInt(args[1]);
@@ -21,6 +22,9 @@ public class ClientConnection {
         }
     }
 
+    /**
+     * Registra um novo usuário no sistema do supermercado, possibilitando-o a logar-se e comprar produtos
+     */
     public void registerNewUser(BufferedReader sockIn, PrintWriter sockOut) {
         User user;
         int id;
@@ -42,6 +46,9 @@ public class ClientConnection {
         System.out.println("Adicionado com sucesso");
     }
 
+    /**
+     * Permite o login do usuário no sistema, comparando seu ID e senha cadastrados
+     */
     public boolean login(BufferedReader sockIn, PrintWriter sockOut) {
         try {
             int id;
@@ -63,6 +70,9 @@ public class ClientConnection {
         }
     }
 
+    /**
+     * Adquire a lista de produtos do servidor para mostrar ao usuário
+     */
     public void getProducts(BufferedReader sockIn, PrintWriter sockOut) {
         try {
             String line;
@@ -76,6 +86,10 @@ public class ClientConnection {
         }
     }
 
+    /**
+     * Permite a compra de produtos por usuários que estejam logados no sistema e atualizada a disponibilidade
+     * dos produtos
+     */
     public void buyProduct(BufferedReader sockIn, PrintWriter sockOut) {
         try {
             String name;

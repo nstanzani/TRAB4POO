@@ -1,8 +1,5 @@
 package br.usp.icmc.ssc0103.Client;
 
-/**
- * Created by arnaldo on 26/06/15.
- */
 public class User {
     private String name;
     private String address;

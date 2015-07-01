@@ -3,14 +3,14 @@ package br.usp.icmc.ssc0103.Server;
 import java.io.*;
 import java.util.*;
 
-/**
- * Created by arnaldo on 26/06/15.
- */
 public class Market {
 
     Scanner scanner = new Scanner(System.in);
     static List<Product> list = new LinkedList<Product>();
 
+    /**
+     * Permite o registro de um novo produto no sistema
+     */
     public void registerNewProduct() {
         try {
             FileWriter fw = new FileWriter("products.csv", true);
@@ -36,6 +36,9 @@ public class Market {
         }
     }
 
+    /**
+     * Imprime a lista de produtos e as suas disponibilidades no sistema
+     */
     public void listProducts(PrintWriter fw) {
         try {
             String line;
@@ -56,6 +59,9 @@ public class Market {
         }
     }
 
+    /**
+     * Permite a reposição do estoque de produtos que estejam em falta
+     */
     public void updateStock() {
         try {
             Product prod;
@@ -88,6 +94,10 @@ public class Market {
         }
     }
 
+    /**
+     * Permite a realização da compra de um produto do sistema, atualizando sua disponibilidade
+     * O método é synchronized visto que mais de uma thread pode acessá-lo ao mesmo tempo
+     * */
     public synchronized boolean makeBuy(String name, int quantity){
         try {
             Boolean returned = false;

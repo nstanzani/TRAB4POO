@@ -5,10 +5,6 @@ import br.usp.icmc.ssc0103.Client.User;
 import java.net.*;
 import java.io.*;
 
-/**
- * Created by Guilherme on 29/06/2015.
- */
-
 public class ThreadClient implements Runnable {
     PrintWriter sockOut;
     BufferedReader sockIn;
@@ -23,6 +19,10 @@ public class ThreadClient implements Runnable {
         }
     }
 
+    /**
+     * Método chamado quando uma nova conexão é feita no servidor
+     */
+    @Override
     public void run(){
         try {
             System.out.println("Nova conexao realizada no servidor!");

@@ -1,10 +1,5 @@
 package br.usp.icmc.ssc0103.Server;
 
-import java.time.LocalDate;
-
-/**
- * Created by arnaldo on 26/06/15.
- */
 public class Product {
     private String name;
     private float price;
@@ -18,10 +13,14 @@ public class Product {
         this.quantity = quantity;
     }
 
+    /**
+     * Métode que formata o texto a ser escrito no arquivo
+     */
     public String toFile(){
         return this.name + "," + this.price + "," + this.provider + "," + this.quantity + "\n";
     }
 
+    @Override
     public String toString(){
         return "Nome: " + this.name + "\nPreco: " + this.price + "\nFornecedor: " + this.provider + "\nQuantidade disponivel: " + this.quantity;
     }

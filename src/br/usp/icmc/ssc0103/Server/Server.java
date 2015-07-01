@@ -10,6 +10,9 @@ public class Server {
     Scanner scanner = new Scanner(System.in);
     Market market = new Market();
 
+    /**
+     * Imprime o menu do servidor, com opções específicas para o dono do sistema
+     */
     public void menuServer(){
         int opt;
         do{
@@ -36,6 +39,9 @@ public class Server {
         } while(opt != 0);
     }
 
+    /**
+     * Registra o cadastro de um usuário no sistema
+     */
     public void register(String value){
         try {
             FileWriter fw = new FileWriter("users.csv", true);
@@ -47,6 +53,9 @@ public class Server {
         }
     }
 
+    /**
+     * Loga o usuário no sistema
+     */
     public boolean login(int id, String pass){
         try {
             BufferedReader users = new BufferedReader(new FileReader("users.csv"));

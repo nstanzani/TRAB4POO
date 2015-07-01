@@ -9,6 +9,12 @@ public class ThreadWait implements Runnable {
     ThreadWait(int port){
         this.port = port;
     }
+
+    /**
+     * Método responsável por ficar a espera de novas conexões e criar uma nova thread para cada novo cliente
+     * conectado
+     */
+    @Override
     public void run(){
         try {
             ServerSocket ss = new ServerSocket(port);

@@ -4,9 +4,6 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-/**
- * Created by Guilherme on 29/06/2015.
- */
 public class Client {
 
     static BufferedReader sockIn;
@@ -15,6 +12,9 @@ public class Client {
     static Scanner scanner = new Scanner(System.in);
     static Optional<User> user;
 
+    /**
+     * Método responsável por iniciar a aplicação do cliente e conectá-lo ao servidor
+     */
     public static void main(String[] args) {
         try {
             Socket socket;
@@ -32,6 +32,9 @@ public class Client {
         }
     }
 
+    /**
+     * Imprime o menu de opções do cliente e seleciona a opção desejada
+     */
     public static void menuIni(){
         try {
             int opt;
@@ -60,6 +63,9 @@ public class Client {
         }
     }
 
+    /**
+     * Imprime o menu para o usuário que já está logado, mostrando novas opções de ação
+     */
     public static void menuLogged() {
         int opt;
         do{
